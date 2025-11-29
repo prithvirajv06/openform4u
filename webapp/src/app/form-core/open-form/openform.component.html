@@ -1,0 +1,20 @@
+<div [formGroup]="form()">
+    <label [attr.for]="openControls().key">{{ openControls().label }}</label>
+    <div>
+        @switch (openControls().controlType) {
+        @case ('textbox') {
+        <input [formControlName]="openControls().key" [id]="openControls().key" [type]="openControls().type" />
+        }
+        @case ('dropdown') {
+        <select [id]="openControls().key" [formControlName]="openControls().key">
+            @for (opt of openControls().options; track opt) {
+            <option [value]="opt.key">{{ opt.value }}</option>
+            }
+        </select>
+        }
+        }
+    </div>
+    @if (!isValid) {
+    <div class="errorMessage">{{ openControls().label }} is required</div>
+    }
+</div>
